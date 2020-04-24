@@ -188,7 +188,7 @@ const frameworkQuestion = () => {
             choices: [js, tsc, ng, vue, sharedNg]
         }
     ];
-    return inquirer.prompt(questions);
+    return ng;
 };
 
 const testingFrameworkQuestion = () => {
@@ -203,7 +203,7 @@ const testingFrameworkQuestion = () => {
             choices: [mocha, jasmine, none]
         }
     ];
-    return inquirer.prompt(questions);
+    return mocha;
 };
 
 const isTscProject = (PROJECT_TYPE) => { return PROJECT_TYPE === tsc || PROJECT_TYPE === ng || PROJECT_TYPE === sharedNg; }
