@@ -226,7 +226,7 @@ const getTemplates = (name) => {
 
 const run = async () => {
     // printLogo();
-    const envProjectType = process.env.npm_config_projectType || process.env["projectType"];
+    const envProjectType = process.env.npm_config_projectType || process.env["PROJECT_TYPE"];
     const envTestingFramework = process.env.npm_config_testingFramework || process.env["TESTING_FRAMEWORK"];
     const hasSetProjectTypeAndTestingFrameworkAsEnvSet = envProjectType && envTestingFramework;
     const isDevAppiumAlreadyInstalled = packageJson.devDependencies && packageJson.devDependencies["nativescript-dev-appium"];
