@@ -177,32 +177,32 @@ const updatePackageJsonDependencies = (packageJson, projectType, testingFramewor
 const isInteractive = process.stdout && process.stdout.isTTY && process.stdin && process.stdin.isTTY && (!process.env || (!process.env.CI && !process.env.JENKINS_HOME));
 
 const frameworkQuestion = () => {
-    // if (!isInteractive) {
-    //     console.info("This console is not interactive! Please export env PROJECT_TYPE!")
-    // }
-    // const questions = [
-    //     {
-    //         type: "list",
-    //         name: "PROJECT_TYPE",
-    //         message: "What kind of project do you use?",
-    //         choices: [js, tsc, ng, vue, sharedNg]
-    //     }
-    // ];
+    if (!isInteractive) {
+        console.info("This console is not interactive! Please export env PROJECT_TYPE!")
+    }
+    const questions = [
+        {
+            type: "list",
+            name: "PROJECT_TYPE",
+            message: "What kind of project do you use?",
+            choices: [js, tsc, ng, vue, sharedNg]
+        }
+    ];
     return ng;
 };
 
 const testingFrameworkQuestion = () => {
-    // if (!isInteractive) {
-    //     console.info("This console is not interactive! Please export env TESTING_FRAMEWORK!")
-    // }
-    // const questions = [
-    //     {
-    //         type: "list",
-    //         name: "TESTING_FRAMEWORK",
-    //         message: "Which testing framework do you prefer?",
-    //         choices: [mocha, jasmine, none]
-    //     }
-    // ];
+    if (!isInteractive) {
+        console.info("This console is not interactive! Please export env TESTING_FRAMEWORK!")
+    }
+    const questions = [
+        {
+            type: "list",
+            name: "TESTING_FRAMEWORK",
+            message: "Which testing framework do you prefer?",
+            choices: [mocha, jasmine, none]
+        }
+    ];
     return mocha;
 };
 
@@ -226,8 +226,8 @@ const getTemplates = (name) => {
 
 const run = async () => {
     // printLogo();
-    const envProjectType = ng;
-    const envTestingFramework = mocha;
+    const envProjectType = process.env.npm_config_projectType || process.env["PROJECT_TYPE"];
+    const envTestingFramework = process.env.npm_config_testingFramework || process.env["TESTING_FRAMEWORK"];
     const hasSetProjectTypeAndTestingFrameworkAsEnvSet = envProjectType && envTestingFramework;
     const isDevAppiumAlreadyInstalled = packageJson.devDependencies && packageJson.devDependencies["nativescript-dev-appium"];
 
