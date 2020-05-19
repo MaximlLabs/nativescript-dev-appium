@@ -188,7 +188,7 @@ const frameworkQuestion = () => {
             choices: [js, tsc, ng, vue, sharedNg]
         }
     ];
-    return inquirer.prompt(questions);
+    return ng;
 };
 
 const testingFrameworkQuestion = () => {
@@ -203,7 +203,7 @@ const testingFrameworkQuestion = () => {
             choices: [mocha, jasmine, none]
         }
     ];
-    return inquirer.prompt(questions);
+    return mocha;
 };
 
 const isTscProject = (PROJECT_TYPE) => { return PROJECT_TYPE === tsc || PROJECT_TYPE === ng || PROJECT_TYPE === sharedNg; }
@@ -226,8 +226,8 @@ const getTemplates = (name) => {
 
 const run = async () => {
     // printLogo();
-    const envProjectType = process.env.npm_config_projectType || process.env["projectType"];
-    const envTestingFramework = process.env.npm_config_testingFramework || process.env["TESTING_FRAMEWORK"];
+    const envProjectType = ng;
+    const envTestingFramework = mocha;
     const hasSetProjectTypeAndTestingFrameworkAsEnvSet = envProjectType && envTestingFramework;
     const isDevAppiumAlreadyInstalled = packageJson.devDependencies && packageJson.devDependencies["nativescript-dev-appium"];
 
@@ -242,11 +242,13 @@ const run = async () => {
     const { TESTING_FRAMEWORK } = envTestingFramework ? { TESTING_FRAMEWORK: envTestingFramework } : await testingFrameworkQuestion();
 
     if (!projectTypes.includes(PROJECT_TYPE)) {
+        console.log("project", { PROJECT_TYPE })
         console.error(`Please provide PROJECT_TYPE of type ${projectTypes}!`);
         return;
     }
 
     if (!testingFrameworks.includes(TESTING_FRAMEWORK)) {
+        console.log("framework", TESTING_FRAMEWORK)
         console.error(`Please provide testingFramework of type ${testingFrameworks}!`);
         return;
     }
